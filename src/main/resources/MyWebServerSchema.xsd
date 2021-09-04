@@ -1,0 +1,328 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://sezgin.com/MyWebServer/namespace"
+           targetNamespace="http://sezgin.com/MyWebServer/namespace"
+           elementFormDefault="qualified">
+
+    <!-- header -->
+    <xs:element name="clientSoapHeaders">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="client" type="tns:ClientObject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- login logout requests -->
+    <xs:element name="loginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[a-zA-Z0-9]+"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="password">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:pattern value="[a-zA-Z0-9]+"/>
+                            <xs:minLength value="4"/>
+                            <xs:maxLength value="8"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="loginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="client" type="tns:ClientObject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="logoutRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="logoutResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- user requests -->
+    <xs:element name="listUserIDsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="limit" type="xs:int" default="-1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="listUserIDsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userids" type="tns:UserIDList"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getUserIDByUsernameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getUserIDByUsernameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getUsernameByUserIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getUsernameByUserIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="username" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getUserByUserIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getUserByUserIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:UserObject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:UserObject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="createUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateUserRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+                <xs:element name="user" type="tns:UserObject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updateUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteUserByUserIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteUserByUserIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- message requests -->
+    <xs:element name="listInboxMessageIDsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="listInboxMessageIDsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="inbox" type="tns:MessageIDList"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="listSentMessageIDsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="listSentMessageIDsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="sent" type="tns:MessageIDList"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getMessageByMsgIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="msgid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getMessageByMsgIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="tns:MessageObject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="sendMessageRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="tns:MessageObject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="sendMessageResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="msgid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteMessageByMsgIDRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="msgid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteMessageByMsgIDResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="msgid" type="xs:positiveInteger"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- custom types -->
+    <xs:complexType name="ClientObject">
+        <xs:sequence>
+            <xs:element name="sessionID" type="xs:positiveInteger"/>
+            <xs:element name="userid" type="xs:positiveInteger"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="UserObject">
+        <xs:sequence>
+            <xs:element name="userid" type="xs:positiveInteger"/>
+            <xs:element name="admin" type="xs:boolean" default="false"/>
+            <xs:element name="username">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-zA-Z0-9]+"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="password">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="[a-zA-Z0-9]+"/>
+                        <xs:minLength value="4"/>
+                        <xs:maxLength value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="firstname" type="xs:string"/>
+            <xs:element name="lastname" type="xs:string"/>
+            <xs:element name="gender">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="male"/>
+                        <xs:enumeration value="female"/>
+                        <xs:enumeration value="other"/>
+                        <xs:enumeration value=""/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="birth" type="xs:date"/>
+            <xs:element name="inbox" type="tns:MessageIDList"/>
+            <xs:element name="sent" type="tns:MessageIDList"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="UserIDList">
+        <xs:sequence>
+            <xs:element name="userid" type="xs:positiveInteger" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="MessageObject">
+        <xs:sequence>
+            <xs:element name="msgid" type="xs:positiveInteger"/>
+            <xs:element name="when" type="xs:dateTime"/>
+            <xs:element name="from" type="xs:positiveInteger"/>
+            <xs:element name="to" type="xs:positiveInteger"/>
+            <xs:element name="subject" type="xs:string"/>
+            <xs:element name="body" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="MessageIDList">
+        <xs:sequence>
+            <xs:element name="msgid" type="xs:positiveInteger" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

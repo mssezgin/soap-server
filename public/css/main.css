@@ -1,0 +1,153 @@
+html {
+    font-size: 1em;
+    font-family: 'Segoe UI', serif;
+    line-height: 1.4;
+}
+
+body {
+    margin: auto;
+}
+
+input, select {
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+.login {
+    margin: 64px auto;
+    max-width: 240px;
+}
+
+.login-title {
+    margin: 0;
+    text-align: center;
+}
+
+.login input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.test-frame {
+    margin: auto auto;
+}
+
+.main-header {
+    height: 48px;
+}
+
+.box {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #bbbbbb;
+    border-radius: 0;
+    margin-left: 5px;
+    margin-top: 5px;
+    float: left;
+    width: 256px;
+    height: 384px;
+    box-sizing: border-box;
+}
+
+.user-box, .admin-box {
+    display: none;
+}
+
+.box-header {
+    width: 100%;
+    height: 48px;
+}
+
+.box-header input {
+    margin: 0;
+ }
+
+.box-body {
+    padding: 8px;
+    height: 334px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+table {
+    margin-bottom: 5px;
+}
+
+.user-title {
+    margin: 0;
+    text-align: center;
+}
+
+.user-info input {
+    width: 100%;
+}
+
+.inbox-sent input {
+    width: 50%;
+    box-sizing: border-box;
+    float: left;
+}
+
+.list {
+    overflow: auto;
+}
+
+.list div {
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+}
+
+.list div:hover {
+    background-color: #efefef;
+}
+
+.message-info {
+    width: 517px;
+}
+
+.message-info .box-header input {
+    width: 25%;
+    box-sizing: border-box;
+    float: left;
+}
+
+#from-info, #to-info {
+    width: 100%;
+    cursor: pointer;
+    display: inline-block;
+}
+
+#from-info:hover, #to-info:hover {
+    background-color: #efefef;
+}
+
+.input-table input, select, label {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.userids {
+    margin-left: 266px;
+}
+
+.userids input {
+    width: 100%;
+    box-sizing: border-box;
+    float: left;
+}
+
+.admin-box {
+    margin-bottom: 32px;
+}
+
+.admin-panel {
+    width: 517px;
+}
+
+.admin-panel .box-header input {
+    width: 33.333%;
+    box-sizing: border-box;
+    float: left;
+}

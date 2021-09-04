@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <div class="main-header"></div>
+
+    <div class="login">
+        <h1 class="login-title" id="login-title">Welcome</h1>
+        <form>
+            <input type="text" id="login-username" placeholder="Username">
+            <input type="password" id="login-password" placeholder="Password">
+            <input type="button" id="login-button" value="LOGIN" onclick="loginRequest();">
+        </form>
+    </div>
+
+    <div class="box user-box user-info">
+        <div class="box-header">
+            <h1 class="user-title">Profile</h1>
+        </div>
+        <div class="box-body">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>UserID:</td>
+                        <td id="userid-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Admin:</td>
+                        <td id="admin-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td id="username-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td id="password-info"></td>
+                    </tr>
+                    <tr>
+                        <td>E-mail:</td>
+                        <td id="email-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Firstname:</td>
+                        <td id="firstname-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Lastname:</td>
+                        <td id="lastname-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Gender:</td>
+                        <td id="gender-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Date of Birth:</td>
+                        <td id="birth-info"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="button" id="logout-button" value="LOGOUT" onclick="logoutRequest();">
+        </div>
+    </div>
+
+    <div class="box user-box inbox-sent">
+        <div class="box-header">
+            <input type="button" id="inbox-button" value="Inbox" onclick="listInboxSentMessageIDsRequest('Inbox');">
+            <input type="button" id="sent-button" value="Sent" onclick="listInboxSentMessageIDsRequest('Sent');">
+        </div>
+        <div class="box-body">
+            <div class="list" id="message-list">
+                <div onclick="getMessageByMsgIDRequest(0);">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box user-box message-info">
+        <div class="box-header">
+            <input type="button" id="reply-button" value="Reply" onclick="replyButton();">
+            <input type="button" id="forward-button" value="Forward" onclick="forwardButton();">
+            <input type="button" id="delete-button" value="Delete" onclick="deleteMessageByMsgIDRequest();">
+            <input type="button" id="new-message-button" value="New Message" onclick="newMessageButton();">
+        </div>
+        <div class="box-body">
+            <table class="info-table">
+                <tbody>
+                    <tr>
+                        <td>MessageID:</td>
+                        <td class="info" id="msgid-info"></td>
+                    </tr>
+                    <tr>
+                        <td>When:</td>
+                        <td class="info" id="when-info"></td>
+                    </tr>
+                    <tr>
+                        <td>From:</td>
+                        <td class="info" id="from-info" onclick="getUsernameByUserIDRequest('from-info');"></td>
+                    </tr>
+                    <tr>
+                        <td>To:</td>
+                        <td class="info" id="to-info" onclick="getUsernameByUserIDRequest('to-info');"></td>
+                    </tr>
+                    <tr>
+                        <td>Subject:</td>
+                        <td class="info" id="subject-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Body:</td>
+                        <td class="info" id="body-info"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <form class="input-table" id="input-table" style="display: none;">
+                <input type="hidden" id="newmsg-msgid" disabled placeholder="MessageID">
+                <input type="hidden" id="newmsg-when" disabled placeholder="When">
+                <input type="hidden" id="newmsg-from" disabled placeholder="From">
+                <label for="newmsg-to">To</label>
+                    <input type="text" id="newmsg-to" placeholder="To">
+                <label for="newmsg-subject">Subject</label>
+                    <input type="text" id="newmsg-subject" placeholder="Subject">
+                <label for="newmsg-body">Body</label>
+                    <input type="text" id="newmsg-body" placeholder="Body">
+                <input type="button" id="newmsg-send" value="Send" onclick="sendMessageRequest();">
+            </form>
+        </div>
+    </div>
+
+    <div class="box admin-box userids">
+        <div class="box-header">
+            <input type="button" id="list-users-button" value="List Users" onclick="listUserIDsRequest();">
+        </div>
+        <div class="box-body">
+            <div class="list" id="user-list">
+                <div onclick="getUserByUserIDRequest(0);">0</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box admin-box admin-panel">
+        <div class="box-header">
+            <input type="button" id="update-user-button" value="Update" onclick="updateButton();">
+            <input type="button" id="delete-user-button" value="Delete" onclick="deleteUserByUserIDRequest();">
+            <input type="button" id="new-user-button" value="New User" onclick="newUserButton();">
+        </div>
+        <div class="box-body">
+            <table class="info-table" id="admin-info-table">
+                <tbody>
+                    <tr>
+                        <td>UserID:</td>
+                        <td id="shown-userid-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Admin:</td>
+                        <td id="shown-admin-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Username:</td>
+                        <td id="shown-username-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Password:</td>
+                        <td id="shown-password-info"></td>
+                    </tr>
+                    <tr>
+                        <td>E-mail:</td>
+                        <td id="shown-email-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Firstname:</td>
+                        <td id="shown-firstname-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Lastname:</td>
+                        <td id="shown-lastname-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Gender:</td>
+                        <td id="shown-gender-info"></td>
+                    </tr>
+                    <tr>
+                        <td>Date of Birth:</td>
+                        <td id="shown-birth-info"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <form class="input-table" id="admin-input-table" style="display: none;">
+                <label for="newuser-userid">UserID</label>
+                    <input type="text" id="newuser-userid" disabled placeholder="UserID">
+                <!--input type="hidden" id="newuser-userid" disabled placeholder="UserID"-->
+                <label for="newuser-admin">Admin</label>
+                    <input type="checkbox" id="newuser-admin" placeholder="Admin">
+                <label for="newuser-username">Username</label>
+                    <input type="text" id="newuser-username" placeholder="Username">
+                <label for="newuser-password">Password</label>
+                    <input type="email" id="newuser-password" placeholder="Password">
+                <label for="newuser-email">E-mail</label>
+                    <input type="email" id="newuser-email" placeholder="E-mail">
+                <label for="newuser-firstname">Firstname</label>
+                    <input type="text" id="newuser-firstname" placeholder="Firstname">
+                <label for="newuser-lastname">Lastname</label>
+                    <input type="text" id="newuser-lastname" placeholder="Lastname">
+                <label for="newuser-gender">Gender</label>
+                    <select id="newuser-gender">
+                        <option value=""></option>
+                        <option value="male">male</option>
+                        <option value="female">female</option>
+                        <option value="other">other</option>
+                    </select>
+                <label for="newuser-birth">Date of Birth</label>
+                    <input type="date" id="newuser-birth" placeholder="Date of Birth">
+                <input type="button" id="newuser-create-update" value="Create" onclick="createUserRequest();">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<sampleRequests>
+
+<!-- http://localhost:8080/ws -->
+
+<!-- template -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+    <Header/>
+    <Body>
+    </Body>
+</Envelope>
+
+<!-- login -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+    <Header/>
+    <Body>
+        <tns:loginRequest>
+            <tns:username>testuser1</tns:username>
+            <tns:password>1234</tns:password>
+        </tns:loginRequest>
+    </Body>
+</Envelope>
+
+<!-- logout -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>1738516802</tns:sessionID>
+            <tns:userid>12</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:logoutRequest>
+        <tns:userid>12</tns:userid>
+    </tns:logoutRequest>
+</Body>
+</Envelope>
+
+<!-- listuserids -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>1610825071</tns:sessionID>
+            <tns:userid>1</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:listUserIDsRequest>
+        <tns:limit>-1</tns:limit>
+    </tns:listUserIDsRequest>
+</Body>
+</Envelope>
+
+<!-- getuserid -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>1610825071</tns:sessionID>
+            <tns:userid>1</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:getUserIDByUsernameRequest>
+        <tns:username>superuser</tns:username>
+    </tns:getUserIDByUsernameRequest>
+</Body>
+</Envelope>
+
+<!-- showuser -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>1610825071</tns:sessionID>
+            <tns:userid>1</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:getUserByUserIDRequest>
+        <tns:userid>12</tns:userid>
+    </tns:getUserByUserIDRequest>
+</Body>
+</Envelope>
+
+<!-- createuser1 -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>1610825071</tns:sessionID>
+            <tns:userid>1</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:createUserRequest>
+        <tns:user>
+            <tns:userid/>
+            <tns:admin>false</tns:admin>
+            <tns:username>testuser3</tns:username>
+            <tns:password>ucuncu</tns:password>
+            <tns:email>user3@test.com</tns:email>
+            <tns:firstname>User</tns:firstname>
+            <tns:lastname>Third</tns:lastname>
+            <tns:gender/>
+            <tns:birth>2021-02-28</tns:birth>
+            <tns:inbox/>
+            <tns:sent/>
+        </tns:user>
+    </tns:createUserRequest>
+</Body>
+</Envelope>
+
+<!-- updateuser -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>1610825071</tns:sessionID>
+            <tns:userid>1</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:updateUserRequest>
+        <tns:userid>12</tns:userid>
+        <tns:user>
+            <tns:userid>99</tns:userid>
+            <tns:admin>true</tns:admin>
+            <tns:username></tns:username>
+            <tns:password>cukubik</tns:password>
+            <tns:email></tns:email>
+            <tns:firstname></tns:firstname>
+            <tns:lastname></tns:lastname>
+            <tns:gender></tns:gender>
+            <tns:birth>2022-08-07</tns:birth>
+            <tns:inbox>
+                <tns:msgid>98</tns:msgid>
+            </tns:inbox>
+            <tns:sent>
+                <tns:msgid>87</tns:msgid>
+            </tns:sent>
+        </tns:user>
+    </tns:updateUserRequest>
+</Body>
+</Envelope>
+
+<!-- deleteuser -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>579585722</tns:sessionID>
+            <tns:userid>1</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:deleteUserByUserIDRequest>
+        <tns:userid>132</tns:userid>
+    </tns:deleteUserByUserIDRequest>
+</Body>
+</Envelope>
+
+<!-- listinboxsent -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>629129487</tns:sessionID>
+            <tns:userid>3</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:listSentMessageIDsRequest>
+        <tns:userid>3</tns:userid>
+    </tns:listSentMessageIDsRequest>
+</Body>
+</Envelope>
+
+<!-- showmsg -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>629129487</tns:sessionID>
+            <tns:userid>3</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:getMessageByMsgIDRequest>
+        <tns:msgid>1</tns:msgid>
+    </tns:getMessageByMsgIDRequest>
+</Body>
+</Envelope>
+
+<!-- sendmsg -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>629129487</tns:sessionID>
+            <tns:userid>3</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:sendMessageRequest>
+        <tns:message>
+            <tns:msgid>999</tns:msgid>
+            <tns:when>2154-02-04T22:54:21</tns:when>
+            <tns:from>3</tns:from>
+            <tns:to>5</tns:to>
+            <tns:subject>School</tns:subject>
+            <tns:body>Don't forget about exams.</tns:body>
+        </tns:message>
+    </tns:sendMessageRequest>
+</Body>
+</Envelope>
+
+<!-- deletemsg -->
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:tns="http://sezgin.com/MyWebServer/namespace">
+<Header>
+    <tns:clientSoapHeaders>
+        <tns:client>
+            <tns:sessionID>629129487</tns:sessionID>
+            <tns:userid>3</tns:userid>
+        </tns:client>
+    </tns:clientSoapHeaders>
+</Header>
+<Body>
+    <tns:deleteMessageByMsgIDRequest>
+        <tns:msgid>5</tns:msgid>
+    </tns:deleteMessageByMsgIDRequest>
+</Body>
+</Envelope>
+
+</sampleRequests>
