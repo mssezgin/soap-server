@@ -1,73 +1,3 @@
-/* // user class
-class UserClient {
-    // TODO
-    constructor(userid, admin, username, password, email, firstname, lastname, gender, birth, inbox, sent) {
-        this.userid = userid;
-        this.admin = admin;
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.gender = gender;
-        this.birth = birth;
-        this.inbox = inbox;
-        this.sent = sent;
-    }
-}
-
-// message class
-class MessageClient {
-    // TODO
-    constructor(msgid, when, from, to, subject, body) {
-        this.msgid = msgid;
-        this.when = when;
-        this.from = from;
-        this.to = to;
-        this.subject = subject;
-        this.body = body;
-    }
-} */
-
-/* function soapRequestWS() {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("POST", "http://localhost:8080/ws/", true);
-
-    var req =
-        '<?xml version="1.0" encoding="utf-8"?>' +
-        '<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/" ' +
-                  'xmlns:tns="http://sezgin.com/MyWebServer/namespace">' +
-        '<Header>' +
-            '<tns:clientSoapHeaders>' +
-                '<tns:client>' +
-                    '<tns:sessionID>1610825071</tns:sessionID>' +
-                    '<tns:userid>1</tns:userid>' +
-                '</tns:client>' +
-            '</tns:clientSoapHeaders>' +
-        '</Header>' +
-        '<Body>' +
-            '<tns:getUserByUserIDRequest>' +
-                '<tns:userid>12</tns:userid>' +
-            '</tns:getUserByUserIDRequest>' +
-        '</Body>' +
-        '</Envelope>';
-
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState === 4) {
-            if (xmlhttp.status === 200) {
-                var parser = new DOMParser();
-                var xmlDoc = parser.parseFromString(xmlhttp.responseText, "text/xml");
-                alert(xmlDoc.getElementsByName("Fault")[0].childNodes[0].nodeValue);
-            } else if (xmlhttp.status === 500) {
-                alert(xmlhttp.responseText);
-            }
-        }
-    }
-    xmlhttp.setRequestHeader("Content-Type", "text/xml");
-    xmlhttp.setRequestHeader("SOAPAction", "http://localhost:8080/ws/");
-    xmlhttp.send(req);
-} */
-
 const URL = "http://localhost:8080/ws/";
 const NAMESPACE_URI = "http://sezgin.com/MyWebServer/namespace";
 
@@ -108,8 +38,6 @@ function commonRequest(request, callBackFunction, async = true) {
 }
 
 function commonError(xmlHttp) {
-
-    // console.log("Error response: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     let errorMessage =
         xmlDoc.getElementsByTagName("faultcode")[0].innerHTML + ": " +
@@ -127,7 +55,6 @@ function loginRequest() {
 }
 
 function loginResponse(xmlHttp) {
-    // console.log("loginResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     SessionID = xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "sessionID")[0].innerHTML;
     UserID = xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "userid")[0].innerHTML;
@@ -138,7 +65,6 @@ function loginResponse(xmlHttp) {
                 "<tns:userid>" + UserID + "</tns:userid>" +
             "</tns:client>" +
         "</tns:clientSoapHeaders>";
-    // console.log("commonHeader: " + commonHeader);
 
     getUserByUserIDRequest(UserID, true);
     let elements = document.getElementsByClassName("user-box");
@@ -149,7 +75,6 @@ function loginResponse(xmlHttp) {
 }
 
 function initializeProfile(xmlHttp) {
-    // console.log("initializeProfile: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     let elements = ["userid", "admin", "username", "password", "email", "firstname", "lastname", "gender", "birth"];
     for (let i = 0; i < elements.length; ++i) {
@@ -173,9 +98,6 @@ function logoutRequest() {
 }
 
 function logoutResponse(xmlHttp) {
-    // console.log("logoutResponse: " + xmlHttp.responseText);
-    // let xmlDoc = xmlHttp.responseXML;
-    // alert("Logged out: " + xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "userid")[0].innerHTML);
     location.reload();
     document.getElementById("login-title").innerHTML = "Logged out";
 }
@@ -189,7 +111,6 @@ function listUserIDsRequest(limit = -1) {
 }
 
 function listUserIDsResponse(xmlHttp) {
-    // console.log("listUserIDsResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     let userids = xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "userid");
     let userList = "";
@@ -211,7 +132,6 @@ function getUserIDByUsernameRequest(username) {
 }
 
 function getUserIDByUsernameResponse(xmlHttp) {
-    // console.log("getUserIDByUsernameResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     let userid;
     try {
@@ -231,17 +151,12 @@ function getUsernameByUserIDRequest(fromOrTo, userid = UserID) {
             "<tns:userid>" + userid + "</tns:userid>" +
         "</tns:getUsernameByUserIDRequest>";
     commonRequest(request, undefined, false);
-    /* let username = getUsernameByUserIDResponse(commonResponse);
-    commonResponse = undefined;
-    return username; */
     getUsernameByUserIDResponse(commonResponse, fromOrTo);
     commonResponse = undefined;
 }
 
 function getUsernameByUserIDResponse(xmlHttp, fromOrTo) {
-    // console.log("getUsernameByUserIDResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
-    // return xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "username")[0].innerHTML;
     document.getElementById(fromOrTo).innerHTML =
         xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "username")[0].innerHTML;
 }
@@ -259,7 +174,6 @@ function getUserByUserIDRequest(userid = UserID, loginAction = false) {
 }
 
 function getUserByUserIDResponse(xmlHttp) {
-    // console.log("getUserByUserIDResponse: " + xmlHttp.responseText);
     document.getElementById("admin-info-table").style.display = "block";
     let xmlDoc = xmlHttp.responseXML;
     let elements = ["userid", "admin", "username", "password", "email", "firstname", "lastname", "gender", "birth"];
@@ -319,7 +233,6 @@ function createUserRequest() {
 }
 
 function createUserResponse(xmlHttp) {
-    // console.log("createUserResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     alert("User was created.\nUserID: " + xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "userid")[0].innerHTML);
     document.getElementById("admin-input-table").style.display = "none";
@@ -349,7 +262,6 @@ function updateUserRequest() {
 }
 
 function updateUserResponse(xmlHttp) {
-    // console.log("updateUserResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     alert("User was updated.\nUserID: " + xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "userid")[0].innerHTML);
     document.getElementById("admin-input-table").style.display = "none";
@@ -366,7 +278,6 @@ function deleteUserByUserIDRequest() {
 }
 
 function deleteUserByUserIDResponse(xmlHttp) {
-    // console.log("deleteUserByUserIDResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     alert("User was deleted.\nUserID: " + xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "userid")[0].innerHTML);
 }
@@ -380,7 +291,6 @@ function listInboxSentMessageIDsRequest(inboxOrSent = "Inbox") {
 }
 
 function listInboxSentMessageIDsResponse(xmlHttp) {
-    // console.log("listInboxMessageIDsResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     let msgids = xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "msgid");
     let messageList = "";
@@ -399,7 +309,6 @@ function getMessageByMsgIDRequest(msgid) {
 }
 
 function getMessageByMsgIDResponse(xmlHttp) {
-    // console.log("getMessageByMsgIDResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     let elements = ["msgid", "when", "from", "to", "subject", "body"];
     for (let i = 0; i < elements.length; ++i) {
@@ -452,7 +361,6 @@ function sendMessageRequest() {
 }
 
 function sendMessageResponse(xmlHttp) {
-    // console.log("sendMessageResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     alert("Message was sent.\nMessageID: " + xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "msgid")[0].innerHTML);
     document.getElementById("input-table").style.display = "none";
@@ -469,7 +377,6 @@ function deleteMessageByMsgIDRequest() {
 }
 
 function deleteMessageByMsgIDResponse(xmlHttp) {
-    // console.log("deleteMessageByMsgIDResponse: " + xmlHttp.responseText);
     let xmlDoc = xmlHttp.responseXML;
     alert("Message was deleted.\nMessageID: " + xmlDoc.getElementsByTagNameNS(NAMESPACE_URI, "msgid")[0].innerHTML);
 }

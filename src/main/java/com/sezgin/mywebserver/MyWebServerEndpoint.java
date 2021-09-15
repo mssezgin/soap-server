@@ -24,48 +24,6 @@ public class MyWebServerEndpoint {
         this.repository = repository;
     }
 
-    /* private ClientObject getClientSoapHeaders(SoapHeaderElement header) {
-        ClientObject client = null;
-        try {
-            // JAXBContext context = JAXBContext.newInstance(ClientObject.class);
-            JAXBContext context = JAXBContext.newInstance(ListUserIDsSoapHeaders.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            // client = (ClientObject) unmarshaller.unmarshal(header.getSource());
-            client = ((ListUserIDsSoapHeaders) unmarshaller.unmarshal(header.getSource())).getClient();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("caught exception");
-            client = new ClientObject();
-        }
-        return client;
-    }
-
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "listUserIDsRequest")
-    @ResponsePayload
-    public ListUserIDsResponse listUserIDs(@RequestPayload ListUserIDsRequest request,
-                                           @SoapHeader(value = "{" + NAMESPACE_URI + "}listUserIDsSoapHeaders") SoapHeaderElement soapHeaderElement) {
-        // BigInteger clientid = null;
-        ClientObject client = null;
-        try {
-            // JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
-            JAXBContext context = JAXBContext.newInstance(ListUserIDsSoapHeaders.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            ListUserIDsSoapHeaders listUserIDsSoapHeaders = (ListUserIDsSoapHeaders) unmarshaller.unmarshal(soapHeaderElement.getSource());
-            // clientid = listUserIDsSoapHeaders.getClientid();
-            client = listUserIDsSoapHeaders.getClient();
-        } catch (Exception e) {
-            // clientid = null;
-            e.printStackTrace();
-            System.err.println("caught exception");
-        }
-        // ObjectFactory factory = new ObjectFactory();
-        // ListUserIDsResponse response = factory.createListUserIDsResponse();
-        // response.setUserids(repository.listUserIDs(clientid, request.getValue().getLimit()));
-        ListUserIDsResponse response = new ListUserIDsResponse();
-        response.setUserids(repository.listUserIDs(client, request.getLimit()));
-        return response;
-    } */
-
     private ClientSoapHeaders getClientSoapHeaders(SoapHeaderElement header) {
         ClientSoapHeaders clientSoapHeaders = null;
         try {
@@ -73,8 +31,6 @@ public class MyWebServerEndpoint {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             clientSoapHeaders = (ClientSoapHeaders) unmarshaller.unmarshal(header.getSource());
         } catch (Exception e) {
-            // e.printStackTrace();
-            // System.err.println("caught exception");
             clientSoapHeaders = new ClientSoapHeaders();
         }
         return clientSoapHeaders;

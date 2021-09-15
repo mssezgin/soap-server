@@ -68,7 +68,6 @@ public class MyDB {
             st.executeUpdate(query);
             st.close();
             System.out.println("Users and Messages tables do not exist. Created new ones.");
-            // e.printStackTrace();
         }
     }
 

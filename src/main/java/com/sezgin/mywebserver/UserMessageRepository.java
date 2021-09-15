@@ -16,6 +16,9 @@ public class UserMessageRepository {
 
     // TODO: create constants for error messages
     // TODO: delete unnecessary assertions that assert client is not null
+    // TODO: add register functionality
+    // TODO: add list online users functionality
+
     private static final MyDB db = new MyDB();
     private static final HashMap<BigInteger, BigInteger> onlineUsers = new HashMap<>();
 
@@ -48,7 +51,7 @@ public class UserMessageRepository {
         return onlineUsers.get(client.getSessionID()).equals(client.getUserid());
     }
 
-    // login logout // TODO: add sign up function
+    // login logout
     public ClientObject login(String username, String password) {
 
         Assert.notNull(username, "Username cannot be null.");
@@ -57,7 +60,6 @@ public class UserMessageRepository {
         BigInteger userid = db.searchUser(username);
         Assert.notNull(userid, "Wrong username.");
         UserObject user = db.selectUser(userid);
-        // Assert.notNull(user, "Could not show user.");
         Assert.isTrue(user.getPassword().equals(password), "Wrong password.");
 
         ClientObject client = new ClientObject();
@@ -75,12 +77,11 @@ public class UserMessageRepository {
         return onlineUsers.remove(client.getSessionID());
     }
 
-    // user // TODO: add list online clients function
+    // user
     public UserIDList listUserIDs(ClientObject client, int limit) {
 
         Assert.isTrue(this.validateSession(client), "Invalid session.");
         UserObject user = db.selectUser(client.getUserid());
-        // Assert.notNull(user, "User does not exist.");
         Assert.isTrue(user.isAdmin(), "You need to be an admin.");
 
         UserIDList userids = db.selectUserIDs(limit);
@@ -113,8 +114,6 @@ public class UserMessageRepository {
         Assert.isTrue(this.validateSession(client), "Invalid session.");
         Assert.notNull(userid, "Userid cannot be null.");
         UserObject user = db.selectUser(client.getUserid());
-        // Assert.notNull(user, "User does not exist.");
-        // Assert.isTrue(user.getUserid().equals(userid) || user.isAdmin(), "You need to be an admin.");
         if (user.getUserid().equals(userid))
             return user;
 
@@ -122,13 +121,6 @@ public class UserMessageRepository {
         UserObject shownUser = db.selectUser(userid);
         Assert.notNull(shownUser, "Could not show user.");
         return shownUser;
-        /* if (!user.getUserid().equals(userid)) {
-            Assert.isTrue(user.isAdmin(), "You need to be an admin.");
-            UserObject shownUser = db.selectUser(userid);
-            Assert.notNull(shownUser, "Could not show user.");
-            return shownUser;
-        }
-        return user; */
     }
 
     public BigInteger addUser(ClientObject client, UserObject addedUser) {
@@ -136,7 +128,6 @@ public class UserMessageRepository {
         Assert.isTrue(this.validateSession(client), "Invalid session.");
         Assert.notNull(addedUser, "User cannot be null.");
         UserObject user = db.selectUser(client.getUserid());
-        // Assert.notNull(user, "User does not exist.");
         Assert.isTrue(user.isAdmin(), "You need to be an admin.");
 
         BigInteger userid = db.insertUser(addedUser);
@@ -151,7 +142,6 @@ public class UserMessageRepository {
         Assert.notNull(userid, "Userid cannot be null.");
         Assert.notNull(newUser, "User cannot be null.");
         UserObject user = db.selectUser(client.getUserid());
-        // Assert.notNull(user, "User does not exist.");
         Assert.isTrue(user.isAdmin(), "You need to be an admin.");
 
         UserObject updatedUser = db.selectUser(userid);
@@ -168,7 +158,6 @@ public class UserMessageRepository {
         Assert.isTrue(this.validateSession(client), "Invalid session.");
         Assert.notNull(userid, "Userid cannot be null.");
         UserObject user = db.selectUser(client.getUserid());
-        // Assert.notNull(user, "User does not exist.");
         Assert.isTrue(user.isAdmin(), "You need to be an admin.");
 
         UserObject removedUser = db.selectUser(userid);
@@ -183,13 +172,10 @@ public class UserMessageRepository {
     // message
     public MessageIDList listMessageIDs(ClientObject client, BigInteger userid, String inboxOrSent) {
 
-        // TODO: userid may be redundant, admins can show user, no need to list others' inbox/sent
         Assert.isTrue(this.validateSession(client), "Invalid session.");
         Assert.notNull(userid, "Userid cannot be null.");
         Assert.isTrue(client.getUserid().equals(userid), "You need to be an admin.");
-        // UserObject user = db.selectUser(userid);
         UserObject user = db.selectUser(client.getUserid());
-        // Assert.notNull(user, "User does not exist.");
 
         MessageIDList msgids = null;
         switch (inboxOrSent) {
@@ -200,7 +186,6 @@ public class UserMessageRepository {
                 msgids = user.getSent();
                 break;
             default:
-                // Assert.notNull(null, "Inbox or Sent should be specified.");
                 break;
         }
         Assert.notNull(msgids, "Could not list messageIDs.");
@@ -212,12 +197,10 @@ public class UserMessageRepository {
         Assert.isTrue(this.validateSession(client), "Invalid session.");
         Assert.notNull(msgid, "Msgid cannot be null.");
         UserObject user = db.selectUser(client.getUserid());
-        // Assert.notNull(user, "User does not exist.");
         if (!user.getInbox().getMsgid().contains(msgid) && !user.getSent().getMsgid().contains(msgid)) {
             Assert.isTrue(user.isAdmin(), "You need to be an admin.");
         }
 
-        // TODO: from and to are userids, make them usernames
         MessageObject msg = db.selectMessage(msgid);
         Assert.notNull(msg, "Could not show message.");
         return msg;
@@ -230,7 +213,6 @@ public class UserMessageRepository {
         Assert.isTrue(client.getUserid().equals(msg.getFrom()), "You need to be an admin.");
 
         UserObject from = db.selectUser(client.getUserid());
-        // Assert.notNull(from, "User does not exist.");
         UserObject to = db.selectUser(msg.getTo());
         Assert.notNull(to, "User does not exist.");
 
@@ -246,7 +228,6 @@ public class UserMessageRepository {
         Assert.isTrue(this.validateSession(client), "Invalid session.");
         Assert.notNull(msgid, "Msgid cannot be null.");
         UserObject user = db.selectUser(client.getUserid());
-        // Assert.notNull(from, "User does not exist.");
 
         if (!user.getInbox().getMsgid().contains(msgid) && !user.getSent().getMsgid().contains(msgid)) {
             Assert.isTrue(user.isAdmin(), "You need to be an admin.");
