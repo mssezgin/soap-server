@@ -1,4 +1,5 @@
-src/main/resources/example*.xml
+example*.xml
+WebConfig.java
 
 HELP.md
 target/
